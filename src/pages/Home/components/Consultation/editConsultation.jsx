@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Form, Input, InputNumber, DatePicker, Button, Radio } from 'antd';
 import 'react-toastify/dist/ReactToastify.css';
+import api from '../../../../api';
+import { ToastContainer, toast } from 'react-toastify';
 import moment from 'moment';
 import 'moment/locale/pt-br'; // Importe o locale para português do Brasil
 import './EditConsultation.scss';
 
 moment.locale('pt-br'); // Defina o locale para português do Brasil
 
-const EditConsultation = () => {
+const EditConsultation = (dataConsultation) => {
   const layout = {
     labelCol: {
       span: 8,
@@ -17,10 +19,48 @@ const EditConsultation = () => {
     },
   };
 
+  const notify = () => toast("Sucesso");
+  const notifyErro = () => toast.error("Erro");
+
   const [value, setValue] = useState(1);
   const onChange = (e) => {
     console.log('radio checked', e.target.value);
     setValue(e.target.value);
+  };
+
+  const onFinish = async (values) => {
+    try {
+      console.log("Chegou no onFinish")
+      const data = {
+        ...values.pet,        
+      };
+  
+      //data.id = idPet;
+      await updateConsultation(data);
+    } catch (error) {
+      console.log(error);
+      notifyErro(); // Notifica erro
+    }
+  };
+  
+  const updateConsultation = async (data) => {
+    try {
+      data.Id = dataConsultation.dataConsultation.Id;
+      console.log(data);
+      const response = await api.patch(`pet/updateConsultation`, data);
+      console.log(response);
+      // Verifica se a atualização foi bem-sucedida
+      if (response.status === 200) {
+        notify(); // Notifica sucesso
+        
+      } else {
+        notifyErro(); // Notifica erro
+      }
+      console.log("Apos response data: ",data);
+    } catch (error) {
+      console.log(error);
+      notifyErro(); // Notifica erro
+    }
   };
 
   return (
@@ -28,6 +68,7 @@ const EditConsultation = () => {
       <Form
         {...layout}
         name="nest-messages"
+        onFinish={onFinish}
         style={{
           maxWidth: 600,
           marginBottom: '16px',
@@ -134,6 +175,7 @@ const EditConsultation = () => {
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
+            <ToastContainer/>
           </Button>
         </Form.Item>
       </Form>
