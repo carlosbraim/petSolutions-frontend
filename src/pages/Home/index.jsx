@@ -181,12 +181,12 @@ export function Home() {
                 <ChartConsultation />
               </div>
             )}
-            {selectedContent === 'dataTableEdit' && (
+            {selectedContent === 'client' && (
               <div className="title-client">
                 <h3>Cliente</h3>
                 <DataTableEdit />
               </div>
-            )}
+            )}      
 
             {selectedContent === 'consultation' && (
               <div className="title-consultation">

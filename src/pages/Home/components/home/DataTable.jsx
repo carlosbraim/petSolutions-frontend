@@ -1,4 +1,4 @@
-
+/*
 import React, { useEffect, useState } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -86,4 +86,37 @@ export default function DataTableEdit() {
         </div>
     );
 }
+        */
+
+
+
+import React, { useState, useEffect } from 'react';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import  ClientsData  from '../home/client/ClientsData';
+
+export default function SingleColumnDemo() {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+       // ClientsData.getProductsMini().then(data => setProducts(data));      
+   
+       console.log(ClientsData)
+       setProducts(ClientsData);
+    }, []);
+
+    return (
+        <div className="card">
+            <DataTable value={products} tableStyle={{ minWidth: '50rem' }}>
+                <Column field="Id" header="Id" sortable ></Column>
+                <Column field="Nome" header="Nome" sortable ></Column>
+                <Column field="Telefone" header="Telefone" sortable></Column>
+                <Column field="Endereco" header="Endereço" sortable ></Column>
+            </DataTable>
+        </div>
+    );
+}
+        
+        
+        
         

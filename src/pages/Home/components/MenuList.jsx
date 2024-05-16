@@ -77,6 +77,14 @@ const MenuList = ({ darkTheme, onMenuClick }) => {
         </Menu.SubMenu>
       </Menu.SubMenu>
 
+
+      {decoded && decoded.typeUser === 1 ?
+          <Menu.Item key="client" icon={<MedicineBoxOutlined />}>
+          Clientes
+          </Menu.Item>
+          : null          
+      }
+
       {decoded && decoded.typeUser === 2 ?  
         <Menu.Item key="chartConsultation" icon={<AreaChartOutlined/>}>
           Dashboard

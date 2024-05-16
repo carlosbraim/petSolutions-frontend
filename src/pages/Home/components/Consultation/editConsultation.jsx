@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form, Input, InputNumber, DatePicker, Button, Radio } from 'antd';
+import { useState } from 'react';
+import { Form, Input, DatePicker, Button, Radio } from 'antd';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../../api';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,6 +10,7 @@ import './EditConsultation.scss';
 moment.locale('pt-br'); // Defina o locale para português do Brasil
 
 const EditConsultation = (dataConsultation) => {
+
   const layout = {
     labelCol: {
       span: 8,
@@ -21,6 +22,17 @@ const EditConsultation = (dataConsultation) => {
 
   const notify = () => toast("Sucesso");
   const notifyErro = () => toast.error("Erro");
+
+  const validateMessages = {
+    required: '${label} is required!',
+    types: {
+      email: '${label} is not a valid email!',
+      number: '${label} is not a valid number!',
+    },
+    number: {
+      range: '${label} must be between ${min} and ${max}',
+    },
+  };
 
   const [value, setValue] = useState(1);
   const onChange = (e) => {
@@ -45,8 +57,9 @@ const EditConsultation = (dataConsultation) => {
   
   const updateConsultation = async (data) => {
     try {
-      data.Id = dataConsultation.dataConsultation.Id;
       console.log(data);
+      console.log(dataConsultation);
+      data.Id = dataConsultation.dataPet.Id;  
       const response = await api.patch(`pet/updateConsultation`, data);
       console.log(response);
       // Verifica se a atualização foi bem-sucedida
@@ -67,12 +80,13 @@ const EditConsultation = (dataConsultation) => {
     <div className='editConsultation-div' style={{height : '100%'}}>
       <Form
         {...layout}
-        name="nest-messages"
+        name="nest-messages"        
         onFinish={onFinish}
         style={{
           maxWidth: 600,
           marginBottom: '16px',
         }}
+        validateMessages={validateMessages}
       >
         <div style={{ display: 'flex', marginBottom: '16px' }}>
           <div style={{  overflow: 'hidden', width: '200px', height: '200px' }}>

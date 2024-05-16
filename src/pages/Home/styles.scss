@@ -88,10 +88,10 @@ body {
 }
 //ALTERADO
 .toggle-FouldOutlined{
-  margin-left: 82px; 
+  margin-left: 150px; 
 }
 .toggle-Foldlined{
-  margin-left: 200px;  
+  margin-left: 400px;  
 }
 
 .title-client{
@@ -100,7 +100,7 @@ body {
   flex-direction: column;
   padding: 15px;
   font-family: 'Poppins' , sans-serif;
-  line-height: 5px;
+  border-bottom: 50px;
 }
 
 .title-chart-consultation{
@@ -207,6 +207,7 @@ body {
   font-size: 1.5rem;
   border-radius: 50%;
   margin: 12px;
+  
 }
 
 

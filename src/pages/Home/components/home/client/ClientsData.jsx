@@ -1,2 +1,16 @@
-/*export default ClientService = [{code:'0001', name:'Carlos', inventoryStatus:'Watch', price:'$65.00'},{code:'0002', name:'Bruno', inventoryStatus:'Watch', price:'$5.00'},
-{code:'0003', name:'Agro', inventoryStatus:'Watch', price:'$50.00'}]*/
+ const ClientsData =() => {
+     return [{
+        Id: '1',
+        code: 'teste',
+        Nome: 'Carlos Junior',
+        Telefone: '31995718090',
+        Endereco: 'Travessa das Avenidas, 20',
+        price: 65,
+        category: 'Accessories',
+        quantity: 24,
+        inventoryStatus: 'INSTOCK',
+        rating: 5
+    }]
+   
+} 
+export default ClientsData;
