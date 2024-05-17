@@ -1,132 +1,108 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './client.scss';
-import { EditOutlined, CloseOutlined } from '@ant-design/icons';
-import { ToastContainer, toast } from 'react-toastify';
+import DataTableEdit from "../../components/home/DataTable";
 import 'react-toastify/dist/ReactToastify.css';
+import NewClientVet  from './newClientVet';
 
-function Client() {
-    const [petDados, setPetDados] = useState([]);
-    const [editing, setEditing] = useState(false); // Adiciona o estado 'editing'
-    const [idPet, setIdPet] = useState({});
-    const notify = () => toast("Sucesso");
-    const notifyErro = () => toast.error("Erro");
+function Client() { 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((pet) => {
-            if (pet) {
-                const { uid } = pet;
-                const data = {
-                    "uid": uid
-                };
-                console.log("Uid para o PET",uid)
-                getPet(uid);
-            }
-        });
+  const abrirModal = () => {
+    setIsModalOpen(true);
+  };
 
-        return () => unsubscribe();
-    }, []);
+  const fecharModal = () => {
+    setIsModalOpen(false);
+  };
 
-    //requisicao
-    const getPet = async (uid) => {
-        try {
-            const response = await api.get(`pet/getPet?uid=${uid}`);
-            const data = response.data;
-            setPetDados(data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+  const confirmarApagar = (id) => {
+    console.log(`ID para apagar: ${id}`);
+    // Adicione aqui a lógica para apagar o item com o ID fornecido
+    fecharModal();
+  };
 
-    const handleEditClick = (id) => {
-        setEditing(true);
-        setIdPet(id);
-    };
+  const newClientVeterinario = () => {
+    <NewClientVet/>
+  };
 
-    const handleCancelEdit = () => {
-        setEditing(false);
-    };
+  return (
+    <>      
+      <div>
+        <DataTableEdit />
+      </div>
 
-    if (editing) {
-        return <EditPerfilPet dataPet={idPet} onCancelEdit={handleCancelEdit} />;
-    } 
+      <div style={{ marginRight: '24px', marginBottom: '100px', marginTop: '100px',  overflow: 'hidden', width: '150px', height: '150px' }}>
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/15/15656.png"
+          alt="Imagem Ilustrativa"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          onClick={newClientVeterinario}
+        />
+      </div>
 
-    const updatePetAtivo = async (data) => {
-      try {  
-        console.log("data updateAtivo 3",data);
-        const response = await api.patch(`pet/updatePetAtivo`, data);
-        console.log(response);
-        // Verifica se a atualização foi bem-sucedida
-        if (response.status === 200) {
-          notify(); // Notifica sucesso
-          
-        } else {
-          notifyErro(); // Notifica erro
-        }
-        console.log("Apos response data: ",data);
-      } catch (error) {
-        console.log(error);
-        notifyErro(); // Notifica erro
-      }
-    };
+      <div style={{ marginRight: '24px', overflow: 'hidden', width: '150px', height: '150px' }}>
+        <img
+          src="https://cdn.icon-icons.com/icons2/912/PNG/512/text-document-cancel-button_icon-icons.com_71554.png"
+          alt="Imagem Ilustrativa"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          onClick={abrirModal}
+        />
+      </div>
 
-    function formatDate(dateString) {
-      const dateObject = new Date(dateString); // Parse the date string into a Date object
-      const day = dateObject.getDate().toString().padStart(2, '0');
-      const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
-      const year = dateObject.getFullYear();
-    
-      return `${day}/${month}/${year}`;
-    }
-    
-
-    return (
-        <div>
-          {petDados.map((petDados, index) => (       
-            <div key={index} className="container-perfil">              
-              <div className="header">
-                <div>
-                  <h1>{petDados?.Nome}</h1>
-                  <div className='BtnEdit'>
-                    <EditOutlined onClick={() => handleEditClick(petDados)}/>      
-                    <CloseOutlined onClick={()=> updatePetAtivo(petDados)}/>   
-                    <ToastContainer />
-                  </div>
-                  <h2>{petDados?.Descricao}</h2>
-                </div>    
-                <img
-                  className='imgPerfilPet'
-                  src={petDados?.PhotoUrl}
-                  width={250}
-                  height={250}
-                />
-              </div>
-              <div className="infos">              
-                <ul>
-                  <li>
-                    <h3>Dados do meu pet</h3>
-                  </li>
-                  <br></br>
-                  <li>
-                    <p><strong>Idade:</strong> {petDados?.Idade} </p>
-                  </li>
-                  <li>
-                    <p><strong>Raça:</strong> {petDados?.Raca}</p>
-                  </li>
-                  <li>
-                    <p><strong>Peso:</strong> {petDados?.Peso}</p>
-                  </li>
-                  <li>
-                  <p><strong>Ultima consulta:</strong> {formatDate(petDados?.UltimaConsulta)} </p>
-                  </li>
-                  <li>
-                    <p><strong>Obs.:</strong> {petDados?.Obs} </p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          ))}
+      {isModalOpen && (
+        <div style={styles.overlay}>
+          <div style={styles.modal}>
+            <h2>Digite o ID que deseja apagar</h2>
+            <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Digite o ID"
+              style={styles.input}
+            />
+            <button onClick={() => confirmarApagar(inputValue)} style={styles.button}>
+              Confirmar
+            </button>
+            <button onClick={fecharModal} style={styles.button}>
+              Cancelar
+            </button>
+          </div>
         </div>
-      );
+      )}
+    </>
+  );
 }
 
+const styles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modal: {
+    backgroundColor: '#fff',
+    padding: '20px',
+    borderRadius: '8px',
+    textAlign: 'center',
+  },
+  input: {
+    marginBottom: '10px',
+    padding: '8px',
+    width: '80%',
+  },
+  button: {
+    margin: '5px',
+    padding: '10px 20px',
+    cursor: 'pointer',
+  },
+};
+
 export default Client;
+

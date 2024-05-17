@@ -5,7 +5,6 @@ import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons'
 import Logo from "./components/Logo";
 import MenuList from "./components/MenuList";
 import ToggleThemeButton from "./components/ToggleThemeButton";
-import DataTableEdit from "./components/home/DataTable";
 import ChartConsultation from "./components/home/report/charts/ChartConsultations";
 import Calendar from "./components/Calendar";
 import { auth } from "../../services/firebase";
@@ -19,6 +18,7 @@ import PageHome from '../Home/components/PageHome'
 import NewPet from './components/NewPet';
 import Exercise from'./components/Exercise';
 import Nutrition from './components/Nutrition';
+import ListClient from './components/ListClient/client'
 
 const { Header, Sider, Footer, Content } = Layout;
 
@@ -184,7 +184,7 @@ export function Home() {
             {selectedContent === 'client' && (
               <div className="title-client">
                 <h3>Cliente</h3>
-                <DataTableEdit />
+                <ListClient/>           
               </div>
             )}      
 

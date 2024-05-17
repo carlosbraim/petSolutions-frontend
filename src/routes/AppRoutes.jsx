@@ -11,6 +11,7 @@ import  NewPet from "../pages/Home/components/NewPet"
 import Exercise from "../pages/Home/components/Exercise"
 import Nutrition from "../pages/Home/components/Nutrition";
 import Client from "../pages/Home/components/ListClient/client";
+import NewClientVet from "../pages/Home/components/ListClient/newClientVet";
 
 export function AppRoutes() {
   return (
@@ -28,6 +29,7 @@ export function AppRoutes() {
         <Route path="/setting" element={<Setting/>} />
         <Route path="/exercise" element={<Exercise/>} />
         <Route path="/nutrition" element={<Nutrition/>} />
+        <Route path="/newClientVet" element={<NewClientVet/>} />
       </Routes>
     </BrowserRouter>
   );
