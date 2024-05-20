@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './perfil.scss';
-import { EditOutlined, CloseOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import EditPerfilPet from '../perfil/EditPerfilPet'; 
 import api from '../../../../../../src/api'
 import { auth } from "../../../../../services/firebase";
@@ -91,7 +91,7 @@ function Perfil() {
                   <h1>{petDados?.Nome}</h1>
                   <div className='BtnEdit'>
                     <EditOutlined onClick={() => handleEditClick(petDados)}/>      
-                    <CloseOutlined onClick={()=> updatePetAtivo(petDados)}/>   
+                    <DeleteOutlined onClick={()=> updatePetAtivo(petDados)}/>   
                     <ToastContainer />
                   </div>
                   <h2>{petDados?.Descricao}</h2>

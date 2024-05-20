@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Form, Input, InputNumber, DatePicker, Button } from 'antd';
-import { EditOutlined, CloseOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import api from '../../../../api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -133,7 +133,7 @@ return (
               </li>
             </ul> 
             <EditOutlined onClick={() => handleEditClick(cunsltationDados)}/>  
-            <CloseOutlined onClick={()=> updateConsultationAtivo(cunsltationDados)}/> 
+            <DeleteOutlined onClick={()=> updateConsultationAtivo(cunsltationDados)}/> 
             <ToastContainer />
           </div>
         </div>   

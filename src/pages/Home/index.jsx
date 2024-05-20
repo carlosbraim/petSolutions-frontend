@@ -19,6 +19,7 @@ import NewPet from './components/NewPet';
 import Exercise from'./components/Exercise';
 import Nutrition from './components/Nutrition';
 import ListClient from './components/ListClient/client'
+import NewClientVet from './components/ListClient/newClientVet';
 
 const { Header, Sider, Footer, Content } = Layout;
 
@@ -199,6 +200,13 @@ export function Home() {
               <div className="title-newconsultation">
                 <h3>Novas Consultas</h3>
                 <NewConsultation />
+              </div>
+            )}
+
+            {selectedContent === 'newClientVet' && (
+              <div className="title-newclientvet">
+                <h3>Adicionar novo cliente</h3>
+                <NewClientVet />
               </div>
             )}
 

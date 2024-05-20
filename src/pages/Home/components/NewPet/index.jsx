@@ -1,11 +1,11 @@
-import React from 'react';
-import { Form, Input, InputNumber, DatePicker, Button } from 'antd';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import moment from 'moment';
-import 'moment/locale/pt-br'; // Importe o locale para português do Brasil
-import api from '../../../../api';
-import {jwtDecode} from 'jwt-decode';
+  import React from 'react';
+  import { Form, Input, InputNumber, DatePicker, Button } from 'antd';
+  import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+  import moment from 'moment';
+  import 'moment/locale/pt-br'; // Importe o locale para português do Brasil
+  import api from '../../../../api';
+  import {jwtDecode} from 'jwt-decode';
 
 moment.locale('pt-br'); // Defina o locale para português do Brasil
 

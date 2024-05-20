@@ -9,7 +9,9 @@ import {
   BarsOutlined,
   CalendarOutlined,
   MedicineBoxOutlined,
-  PlusOutlined
+  PlusOutlined,
+  ContactsOutlined,
+  SolutionOutlined
 } from '@ant-design/icons';
 
 import {jwtDecode} from 'jwt-decode';
@@ -78,11 +80,20 @@ const MenuList = ({ darkTheme, onMenuClick }) => {
       </Menu.SubMenu>
 
 
-      {decoded && decoded.typeUser === 1 ?
-          <Menu.Item key="client" icon={<MedicineBoxOutlined />}>
-          Clientes
-          </Menu.Item>
-          : null          
+      {decoded && decoded.typeUser === 1 ?          
+        <Menu.SubMenu 
+          key='List' 
+          icon={<SolutionOutlined></SolutionOutlined>} 
+          title="Lista"
+        >
+          <Menu.Item key="client" icon={<ContactsOutlined />}>
+            Clientes 
+            </Menu.Item>
+          <Menu.Item key="newClientVet" icon={<PlusOutlined />}>
+          Cliente
+          </Menu.Item>       
+        </Menu.SubMenu>        
+        : null          
       }
 
       {decoded && decoded.typeUser === 2 ?  

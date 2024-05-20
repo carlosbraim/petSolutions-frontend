@@ -22,26 +22,17 @@ function Client() {
     fecharModal();
   };
 
-  const newClientVeterinario = () => {
-    <NewClientVet/>
-  };
+  
 
   return (
     <>      
-      <div>
+      <div style={{ marginTop: '100px' }}>
         <DataTableEdit />
       </div>
 
-      <div style={{ marginRight: '24px', marginBottom: '100px', marginTop: '100px',  overflow: 'hidden', width: '150px', height: '150px' }}>
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/15/15656.png"
-          alt="Imagem Ilustrativa"
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          onClick={newClientVeterinario}
-        />
-      </div>
+      
 
-      <div style={{ marginRight: '24px', overflow: 'hidden', width: '150px', height: '150px' }}>
+      <div style={{ marginRight: '24px',marginTop: '100px', overflow: 'hidden', width: '150px', height: '150px' }}>
         <img
           src="https://cdn.icon-icons.com/icons2/912/PNG/512/text-document-cancel-button_icon-icons.com_71554.png"
           alt="Imagem Ilustrativa"
