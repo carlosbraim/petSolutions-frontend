@@ -39,6 +39,7 @@ const infoUser = () =>{
   if (token) {
     try {
       decoded = jwtDecode(token)
+      console.log("decoded",decoded)
     } catch (ex) {
        console.log("Nao possui dados")
     }
@@ -48,11 +49,10 @@ infoUser();
 
 const onFinish = async (values) => {
   try {
-    const data = {
-      ...values.pet,     
-      uid_dadosusuario_fk: decoded.uid,
-    }; 
-    await postPet(data);
+    
+    values.client.uid_dadosusuario_fk = decoded.uid;
+    console.log("values" ,values.client)
+    await postNewClientVet(values.client);
   } catch (error) {
     console.log(error);
     notifyErro(); // Notifica erro
@@ -61,9 +61,9 @@ const onFinish = async (values) => {
 
 
 
-const postPet = async (data) => {
-  console.log("novo pet",data)
-  await api.post('pet/newPet', data)
+const postNewClientVet = async (data) => {
+  console.log("novo Cliente Veterinario",data)
+  await api.post('clientVet/newClientVet', data)
     .then(function(response){
       if(response.status == 200){
         notify(); // Notifica sucesso

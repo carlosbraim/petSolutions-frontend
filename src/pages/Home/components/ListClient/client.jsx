@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import './client.scss';
 import DataTableEdit from "../../components/home/DataTable";
 import 'react-toastify/dist/ReactToastify.css';
-import NewClientVet  from './newClientVet';
+import api from '../../../../api';
+import { ToastContainer, toast } from 'react-toastify';
 
 function Client() { 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const [inputValue, setInputValue] = useState('');
+  const notify = () => toast.success("Sucesso");  
+  const notifyErro = () => toast.error("Erro");
 
   const abrirModal = () => {
     setIsModalOpen(true);
@@ -16,21 +20,42 @@ function Client() {
     setIsModalOpen(false);
   };
 
-  const confirmarApagar = (id) => {
-    console.log(`ID para apagar: ${id}`);
-    // Adicione aqui a lógica para apagar o item com o ID fornecido
-    fecharModal();
-  };
+  const confirmarApagar = async (Id) => {
+    console.log(`ID para apagar: ${Id}`);    
+    await updateClientVet(Id);   
 
-  
+  };
+ 
+  const updateClientVet = async (data) => {
+    
+    try {
+      const dataUpdateClient = {Id:data};
+      console.log("data dentro do updateClientVet ", dataUpdateClient);
+       await api.patch(`clientVet/updateClientVetAtivo`, dataUpdateClient)
+       .then(function(response){
+        if (response.status === 200) {
+          notify(); // Notifica sucesso
+          fecharModal();
+        } else {
+          notifyErro(); // Notifica erro     
+          fecharModal();
+        }
+       }
+    ).catch(function(error){
+      console.log("Erro ao executar API" + error);
+      notifyErro(); // Notifica erro
+    });
+  }catch(error){
+    console.log("Erro ao executar API" + error);
+    notifyErro(); // Notifica erro
+  }
+  }
 
   return (
     <>      
       <div style={{ marginTop: '100px' }}>
         <DataTableEdit />
-      </div>
-
-      
+      </div>      
 
       <div style={{ marginRight: '24px',marginTop: '100px', overflow: 'hidden', width: '150px', height: '150px' }}>
         <img
@@ -52,15 +77,18 @@ function Client() {
               placeholder="Digite o ID"
               style={styles.input}
             />
-            <button onClick={() => confirmarApagar(inputValue)} style={styles.button}>
+            <button onClick={()=>confirmarApagar(inputValue)} style={styles.button}>
               Confirmar
+          
             </button>
             <button onClick={fecharModal} style={styles.button}>
               Cancelar
             </button>
+            
           </div>
         </div>
       )}
+      <ToastContainer/>
     </>
   );
 }
