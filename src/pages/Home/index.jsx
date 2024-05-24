@@ -173,7 +173,10 @@ export function Home() {
             {selectedContent === 'calendar' && (
               <div className="title-calendar">
                 <h3>Calendario</h3>
-                <Calendar />
+                <div className='calendario'>
+                  <Calendar />
+                </div>
+                
               </div>
             )}
             {selectedContent === 'chartConsultation' && (
