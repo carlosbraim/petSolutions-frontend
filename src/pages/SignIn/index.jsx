@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Envelope, Lock, Eye, EyeSlash } from 'phosphor-react'
+import { Envelope, Lock, Eye, EyeSlash } from 'phosphor-react';
 import { FcGoogle } from "react-icons/fc";
 import { Link , useNavigate} from 'react-router-dom';
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from 'firebase/auth';
-import {auth} from '../../services/firebase'
-import './styles.scss'
+import {auth} from '../../services/firebase';
+import './styles.scss';
+import api from '../../api';
 
 export function SignIn(){
     const navigate = useNavigate();
@@ -21,11 +22,24 @@ export function SignIn(){
         setShow(!show)    
     }
 
+    const postLog = async (data) => {
+        await api.post('log/postLog',data)
+          .then(function(response){
+            if(response.status == 200){         
+              console.log("Api Log executada com sucesso");         
+            }
+          }).catch(function(error){
+            console.log("Erro ao executar API log" + error);         
+          });
+      }
+
     //caso o usuario ja esteja logado na aplicação
     auth.onAuthStateChanged(user => {
         if (user) {
             sessionStorage.setItem('user',user.uid)
             window.location.href = "/home";
+            //log
+            postLog({uid:user.uid});
         }
       });
 
@@ -35,7 +49,9 @@ export function SignIn(){
         .then(() => { //.then((result) => {
             //setUser(result.user);
             navigate('/home');
-            //sucesso
+            //log
+            postLog({uid:user.uid});
+            
         }).catch((error) => {
             console.log(error);
             //mesagem de erro
@@ -55,6 +71,8 @@ export function SignIn(){
       }
       if (user) {
         navigate('/home');
+        //log
+        postLog({uid:user.uid});
       }
 
       
