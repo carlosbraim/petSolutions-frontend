@@ -80,7 +80,7 @@ const MenuList = ({ darkTheme, onMenuClick }) => {
       </Menu.SubMenu>
 
 
-      {decoded && decoded.typeUser === 1 ?          
+      {decoded && decoded.typeUser === 2 ?          
         <Menu.SubMenu 
           key='List' 
           icon={<SolutionOutlined></SolutionOutlined>} 

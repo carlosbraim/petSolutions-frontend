@@ -5,7 +5,7 @@ import api from '../../../../api';
 import { ToastContainer, toast } from 'react-toastify';
 import moment from 'moment';
 import 'moment/locale/pt-br'; // Importe o locale para português do Brasil
-import './EditConsultation.scss';
+import './editConsultation.scss';
 
 moment.locale('pt-br'); // Defina o locale para português do Brasil
 
