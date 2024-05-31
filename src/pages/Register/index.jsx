@@ -85,8 +85,7 @@ export function Register() {
                 )}
               </div>
             </div>
-            <p> {email}</p>
-            <p>{password}</p>
+            
             <button onClick={handleSignOut} type="submit">
               Cadastrar
             </button>
